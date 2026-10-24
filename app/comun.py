@@ -22,11 +22,11 @@ MESES = ["", "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct
 
 
 def api_url() -> str:
-    """Dirección de la API: primero st.secrets (Streamlit Cloud), luego variable de entorno, luego local."""
+    """Dirección de la API: primero st.secrets (Streamlit Cloud), luego variable de entorno, luego Render."""
     try:
         url = st.secrets["API_URL"]
     except Exception:
-        url = os.environ.get("API_URL", "http://localhost:8000")
+        url = os.environ.get("API_URL", "https://taxis-nyc-nyd3.onrender.com")
     return str(url).rstrip("/")
 
 
