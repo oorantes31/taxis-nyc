@@ -1,0 +1,111 @@
+{
+  "modelo": "XGBoost de cuantiles (reg:quantileerror) sobre log1p(viajes)",
+  "parametros": {
+    "n_estimators": 250,
+    "max_depth": 6
+  },
+  "entrenamiento": "8 al 24 de enero de 2024",
+  "prueba": "25 al 31 de enero de 2024",
+  "zonas_pronosticadas": 58,
+  "zonas_segmentadas": 100,
+  "pct_viajes_cubiertos": 0.9774316633407709,
+  "filas_entrenamiento": 23664,
+  "filas_prueba": 9744,
+  "comparacion": [
+    {
+      "Método": "Modelo XGBoost (p50)",
+      "MAE": 11.770807028550724,
+      "WAPE": 0.16621535321468017
+    },
+    {
+      "Método": "Igual que hace una semana",
+      "MAE": 11.881773399014778,
+      "WAPE": 0.16778230732554922
+    },
+    {
+      "Método": "Igual que ayer",
+      "MAE": 21.286330049261085,
+      "WAPE": 0.300583881733878
+    }
+  ],
+  "cobertura_80": 0.8759236453201971,
+  "pinball": 4.656260982771284,
+  "mejora_mae_vs_semana": 0.009339209454478858,
+  "calibracion": [
+    {
+      "cuantil": 0.1,
+      "nombre": "p10",
+      "fraccion_real_debajo": 0.08076765188834155
+    },
+    {
+      "cuantil": 0.2,
+      "nombre": "p20",
+      "fraccion_real_debajo": 0.18544745484400657
+    },
+    {
+      "cuantil": 0.3,
+      "nombre": "p30",
+      "fraccion_real_debajo": 0.2985426929392447
+    },
+    {
+      "cuantil": 0.4,
+      "nombre": "p40",
+      "fraccion_real_debajo": 0.41276683087027916
+    },
+    {
+      "cuantil": 0.5,
+      "nombre": "p50",
+      "fraccion_real_debajo": 0.5268883415435139
+    },
+    {
+      "cuantil": 0.6,
+      "nombre": "p60",
+      "fraccion_real_debajo": 0.6338259441707718
+    },
+    {
+      "cuantil": 0.7,
+      "nombre": "p70",
+      "fraccion_real_debajo": 0.7409688013136289
+    },
+    {
+      "cuantil": 0.8,
+      "nombre": "p80",
+      "fraccion_real_debajo": 0.8390804597701149
+    },
+    {
+      "cuantil": 0.9,
+      "nombre": "p90",
+      "fraccion_real_debajo": 0.937807881773399
+    }
+  ],
+  "validacion": [
+    {
+      "n_estimators": 250,
+      "max_depth": 6,
+      "pinball": 5.751783883520623,
+      "MAE_p50": 14.683341367203273
+    },
+    {
+      "n_estimators": 250,
+      "max_depth": 5,
+      "pinball": 5.895955885676122,
+      "MAE_p50": 15.10572437268597
+    },
+    {
+      "n_estimators": 250,
+      "max_depth": 4,
+      "pinball": 6.098874517560809,
+      "MAE_p50": 15.527976016877586
+    }
+  ],
+  "costos_ejemplo": {
+    "costo_ocioso": 10,
+    "costo_perdido": 40,
+    "cuantil": 0.8,
+    "totales": {
+      "Cuantil óptimo (p80)": 2229360.0,
+      "Pronóstico central (p50)": 3163330.0,
+      "Igual que hace una semana": 3160950.0
+    }
+  }
+}

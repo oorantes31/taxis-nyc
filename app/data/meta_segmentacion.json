@@ -1,0 +1,57 @@
+{
+  "k": 4,
+  "varianza_pca": [
+    0.3750226896073141,
+    0.2741914605585738
+  ],
+  "variables": [
+    "log_viajes_dia",
+    "distancia_mediana",
+    "tarifa_mediana",
+    "propina_mediana",
+    "pct_fin_semana",
+    "pct_manana",
+    "pct_tarde",
+    "pct_noche"
+  ],
+  "grupos": {
+    "Aeropuertos y viajes largos": {
+      "descripcion": "Se distingue por más propina que el promedio, más tarifa que el promedio y más distancia que el promedio.",
+      "zonas": 5
+    },
+    "Centro de alta demanda": {
+      "descripcion": "Se distingue por más % de 16 a 20 h que el promedio, más volumen de viajes que el promedio y menos tarifa que el promedio.",
+      "zonas": 47
+    },
+    "Residencial de baja demanda": {
+      "descripcion": "Se distingue por menos volumen de viajes que el promedio, más % de 6 a 10 h que el promedio y menos propina que el promedio.",
+      "zonas": 36
+    },
+    "Vida nocturna": {
+      "descripcion": "Se distingue por más % de 22 a 5 h que el promedio, más % en fin de semana que el promedio y menos % de 6 a 10 h que el promedio.",
+      "zonas": 12
+    }
+  },
+  "cargas_pca": {
+    "PC1": {
+      "log_viajes_dia": 0.5,
+      "distancia_mediana": -0.34,
+      "tarifa_mediana": -0.35,
+      "propina_mediana": 0.29,
+      "pct_fin_semana": 0.16,
+      "pct_manana": -0.45,
+      "pct_tarde": 0.44,
+      "pct_noche": 0.02
+    },
+    "PC2": {
+      "log_viajes_dia": -0.14,
+      "distancia_mediana": -0.06,
+      "tarifa_mediana": -0.03,
+      "propina_mediana": -0.12,
+      "pct_fin_semana": 0.61,
+      "pct_manana": -0.25,
+      "pct_tarde": -0.32,
+      "pct_noche": 0.65
+    }
+  }
+}
