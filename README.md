@@ -116,3 +116,44 @@ Sin `secrets.toml` la app usa `http://localhost:8000` (o la variable de entorno 
 
 Viajes de taxi amarillo de enero 2024 y tabla de zonas de la
 [NYC Taxi & Limousine Commission](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page).
+
+
+## Mapa Conceptual y Análisis Crítico (Módulo 4 · Semana 10)
+
+```mermaid
+flowchart TD
+    ROOT["🧭 Interpretabilidad, Evaluación y Comunicación de Modelos<br/>(Taxis NYC · Semana 10)"]
+
+    ROOT --> A["📁 1. Arquitectura Reproducible<br/>(Inspirada en Cookiecutter Data Science)"]
+    ROOT --> B["🔍 2. Interpretabilidad y Explicabilidad<br/>(¿Por qué predice esto el modelo?)"]
+    ROOT --> C["📊 3. Evaluación Temporal e Incertidumbre<br/>(¿Cuánto confiar?)"]
+    ROOT --> D["⚖️ 4. Toma de Decisiones y Ética<br/>(¿Qué hacer y a quién afecta?)"]
+
+    A --> A1["preparacion.ipynb<br/>Exploración, lags y entrenamiento"]
+    A --> A2["api/ (FastAPI en Render)<br/>Inferencia desacoplada (/info, /pronostico)"]
+    A --> A3["app/ (Streamlit Cloud)<br/>5 páginas interactivas para negocio"]
+
+    B --> B1["Coeficientes Lineales<br/>Efecto marginal global con signo (+/-)<br/>Limitación: asume linealidad"]
+    B --> B2["Importancia por Ganancia (Gain)<br/>Magnitud global en árboles (sin signo)<br/>Ejemplo: lag_168 (58.2%) + lag_24 (24.8%)"]
+    B --> B3["Valores SHAP (Teoría de Juegos)<br/>Aporte local y global con signo (+/-)<br/>Predicción = Valor Base + Σ SHAP_i"]
+
+    C --> C1["Corte Temporal Estricto<br/>Entrena: 8–24 ene · Prueba: 25–31 ene<br/>Evita fuga de datos (data leakage)"]
+    C --> C2["Regresión Cuantílica (p10 a p90)<br/>Banda del 80% con 87.6% de cobertura real"]
+    C --> C3["Monitoreo Continuo (Extra)<br/>Seguimiento diario de WAPE con umbral de alerta"]
+
+    D --> D1["Decisión Óptima (Newsvendor)<br/>q* = Cp / (Cp + Co)<br/>Ahorra ~30% vs usar solo la mediana (p50)"]
+    D --> D2["Riesgo Ético: Demanda Censurada<br/>Los datos miden viajes hechos, no demanda insatisfecha<br/>No usar para recortar flota en distritos periféricos"]
+```
+
+### Comparación de Métodos de Interpretabilidad
+
+| Criterio | Coeficientes Lineales ($\beta_j$) | Importancia por Ganancia (*Gain* en XGBoost) | Valores SHAP (*Shapley Additive exPlanations*) |
+| :--- | :--- | :--- | :--- |
+| **Alcance** | Global | Global | **Local** (cada predicción) y **Global** |
+| **Dirección del efecto ($+$ / $-$)** | **Sí** | **No** (solo magnitud $\ge 0$) | **Sí** (indica si empuja el pronóstico hacia arriba o abajo) |
+| **Relaciones no lineales** | No (salvo interacciones manuales) | **Sí** (captura umbrales e interacciones hora-zona) | **Sí** |
+| **Ejemplo aplicado** | Vivienda: $+m^2$ aumenta el precio; $+$antigüedad lo reduce | **Taxis NYC:** `lag_168` aporta **58.2%** de la ganancia y `lag_24` el **24.8%** | **Taxis NYC:** explica cuántos viajes suma o resta `lag_168` en Midtown a las 18:00 respecto al promedio |
+
+### Análisis Crítico: Beneficios y Riesgos Éticos
+- **Beneficio operativo:** Combinar regresión cuantílica (`p10`–`p90`) con la razón crítica $q^* = C_p / (C_p + C_o)$ traduce la incertidumbre estadística en una decisión económica transparente, reduciendo el costo semanal de **US\$3.16 M** (enviando la mediana `p50`) a **US\$2.23 M** (enviando `p80` cuando perder un pasajero cuesta US\$40 y un taxi ocioso US\$10).
+- **Riesgo ético (sesgo de demanda censurada):** El dataset registra únicamente *viajes realizados* de taxi amarillo, no personas que buscaron taxi y no encontraron. Si se usara este modelo para recortar unidades en barrios con pocos viajes registrados (Bronx, Queens, Brooklyn, Staten Island), se reforzaría un ciclo de exclusión perjudicando a residentes periféricos, adultos mayores o personas con movilidad reducida.
