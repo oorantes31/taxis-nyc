@@ -5,7 +5,7 @@ taxis enviar, en una app de Streamlit que consulta su propia API.
 
 | | Link |
 |---|---|
-| App (Streamlit Community Cloud) | `https://PEGAR-LINK-DE-LA-APP.streamlit.app` |
+| App (Streamlit Community Cloud) | `https://taxis-nyc-oscar-orantes.streamlit.app/` |
 | API (Render) · documentación | `https://taxis-nyc-nyd3.onrender.com/docs` |
 | Repositorio | `https://github.com/oorantes31/taxis-nyc` |
 
